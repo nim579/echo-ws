@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="content-type">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+
+		<title>Echo server stats</title>
+
+		<script type="text/javascript" src="http://yastatic.net/jquery/2.1.4/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://yastatic.net/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script type="text/javascript">
+			$(function(){
+				var ws;
+				initSocket = function(){
+					var ws = new WebSocket('ws://'+location.host+'/wstats');
+					ws.onmessage = function(mes){
+						$('.jsStats').html(JSON.stringify(JSON.parse(mes.data), null, 4));
+					}
+					ws.onclose = function(){
+						setTimeout(function(){
+							initSocket();
+						}, 5000);
+					}
+				}
+				initSocket();
+			});
+		</script>
+	</head>
+	<body>
+		<pre class="jsStats"></pre>
+	</body>
+</html>

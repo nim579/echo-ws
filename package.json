@@ -1,0 +1,32 @@
+{
+  "name": "echo-ws",
+  "version": "0.1.0",
+  "description": "WebSocket echo server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Iv",
+  "license": "MIT",
+  "dependencies": {
+    "backbone": "^1.2.3",
+    "underscore": "^1.8.3",
+    "ws": "^0.8.0"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nim579/echo-ws.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nim579/echo-ws/issues"
+  },
+  "homepage": "https://github.com/nim579/echo-ws",
+  "scripts": {
+    "postinstall": "./build.sh",
+    "start": "./start.sh",
+    "restart": "./restart.sh"
+  }
+}
