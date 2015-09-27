@@ -19,16 +19,22 @@ class Stats extends Backbone.Model
 
         @on 'change', @update
         @bindExit()
+        @setTicker()
 
     bindExit: ->
         exit = =>
-            @logStat()
+            @logStat kill: true
             process.removeAllListeners 'SIGINT'
             process.removeAllListeners 'SIGTERM'
             process.exit()
 
         process.on 'SIGINT', exit
         process.on 'SIGTERM', exit
+
+    setTicker: ->
+        setInterval =>
+            @logStat()
+        , 3600000
 
     connect: ->
         connections = @get('connections_count') + 1
@@ -57,8 +63,14 @@ class Stats extends Backbone.Model
         data = @toJSON()
         client.send JSON.stringify data
 
-    logStat: ->
-        data = @toJSON()
+    logStat: (additional={})->
+        data = _.extend {}, @toJSON(), additional
         @logs.log JSON.stringify _.omit data, 'messages'
+
+    toJSON: ->
+        data = Backbone.Model::toJSON.apply @, arguments
+        data.time = new Date()
+        return data
+
 
 module.exports = Stats
