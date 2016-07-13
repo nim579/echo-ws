@@ -15,7 +15,7 @@ location /wstats {
 }
 
 location /stats {
-	alias	/var/www/echo/module/static;
+	alias	/www/apps/echo/module/static;
 	index	index.html;
 }
 
